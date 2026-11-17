@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CYBERFORGE | סייברפורג' - חנות גיימינג וחומרה מתקדמת</title>
+    <!-- טעינת Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- טעינת פונטים מגוגל: Heebo, Assistant לעברית ו-Orbitron, Rajdhani לאנגלית טכנולוגית -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&family=Orbitron:wght@600;700;800;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+    <!-- טעינת FontAwesome לאייקונים -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Heebo', 'Assistant', 'sans-serif'],
+                        display: ['Heebo', 'Assistant', 'sans-serif'],
+                        cyber: ['Orbitron', 'Rajdhani', 'sans-serif'],
+                    },
+                    colors: {
+                        cyber: {
+                            bg: '#090B10',
+                            card: '#0F131C',
+                            surface: '#161C2A',
+                            cyan: '#00F0FF',
+                            orange: '#FF5500',
+                            amber: '#FF7700',
+                            steel: '#94A3B8',
+                        }
+                    },
+                    boxShadow: {
+                        'neon-cyan': '0 0 15px rgba(0, 240, 255, 0.35), 0 0 30px rgba(0, 240, 255, 0.15)',
+                        'neon-orange': '0 0 18px rgba(255, 85, 0, 0.45), 0 0 35px rgba(255, 85, 0, 0.2)',
+                        'card-glow': '0 10px 35px 0 rgba(0, 0, 0, 0.75)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* הגדרות בסיס ואפקטים ויזואליים בסגנון Option 02 (כתום לוהט + ציאן חשמלי) */
+        body {
+            background-color: #090B10;
+            color: #f1f5f9;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 12% 18%, rgba(255, 85, 0, 0.11) 0%, transparent 42%),
+                radial-gradient(circle at 88% 82%, rgba(0, 240, 255, 0.1) 0%, transparent 42%),
+                linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 38px 38px, 38px 38px;
+        }
+
+        /* כרטיסי מתכת כהים עם זכוכית */
+        .glass-panel {
+            background: rgba(15, 19, 28, 0.82);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+        }
+
+        .glass-panel:hover {
+            border-color: rgba(255, 85, 0, 0.45);
+        }
+
+        /* גרדיאנט כיתוב מותאם למותג */
+        .text-gradient-forge {
+            background: linear-gradient(135deg, #FF5500 0%, #FF8800 45%, #00F0FF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* אנימציית מעבר חלקה בין 4 העמודים */
+        .page-section {
+            display: none;
+            opacity: 0;
+            transform: translateY(14px);
+        }
+
+        .page-section.active {
+            display: block;
+            animation: fadeInSlide 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes fadeInSlide {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ריחוף עדין למאסקוט בבאנר הראשי */
+        @keyframes floatMascot {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+        .mascot-float {
+            animation: floatMascot 4.5s ease-in-out infinite;
+        }
+
+        /* קו תחתון זוהר ללשונית פעילה בתפריט */
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            right: 0;
+            width: 0;
+            height: 2.5px;
+            background: linear-gradient(90deg, #FF5500, #00F0FF);
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px #FF5500;
+        }
+
+        .nav-link.active-nav {
+            color: #00F0FF;
+            text-shadow: 0 0 12px rgba(0, 240, 255, 0.45);
+        }
+
+        .nav-link.active-nav::after,
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* עיצוב פס גלילה */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #090B10;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e2638;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FF5500;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-cyber-orange selection:text-white">
+
+    <!-- ==================== הגדרות SVG ללוגו OPTION 02 (תבנית ניתנת לשימוש חוזר) ==================== -->
+    <svg width="0" height="0" class="hidden" aria-hidden="true">
+        <defs>
+            <!-- גרדיאנט מתכת כהה לשריון -->
+            <linearGradient id="armorMetal" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#3B4559"/>
+                <stop offset="50%" stop-color="#1E2533"/>
+                <stop offset="100%" stop-color="#0D1119"/>
+            </linearGradient>
+            <!-- גרדיאנט מתכת בהירה להדגשות -->
+            <linearGradient id="steelHighlight" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#E2E8F0"/>
+                <stop offset="50%" stop-color="#94A3B8"/>
+                <stop offset="100%" stop-color="#475569"/>
+            </linearGradient>
+            <!-- גרדיאנט כתום-אש לוהט -->
+            <linearGradient id="forgeOrange" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FF8800"/>
+                <stop offset="50%" stop-color="#FF5500"/>
+                <stop offset="100%" stop-color="#CC2200"/>
+            </linearGradient>
+            <!-- גרדיאנט ניאון ציאן -->
+            <linearGradient id="cyberCyan" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#80F8FF"/>
+                <stop offset="50%" stop-color="#00F0FF"/>
+                <stop offset="100%" stop-color="#0088AA"/>
+            </linearGradient>
+            <!-- זוהר ניאון חיצוני -->
+            <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="3" result="blur"/>
+                <feMerge>
+                    <feMergeNode in="blur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+            </filter>
+
+            <!-- סמל המאסקוט המלא OPTION 02 -->
+            <g id="cyberforge-mascot-02">
+                <!-- מסגרת מגן E-Sports חיצונית (שמאל כתום לוהט, ימין ציאן חשמלי) -->
+                <path d="M130 14 L218 46 L236 138 L206 196 L130 218 L54 196 L24 138 L42 46 Z" fill="#0B0E17" stroke="url(#forgeOrange)" stroke-width="5" filter="url(#neonGlow)"/>
+                <path d="M130 14 L218 46 L236 138 L206 196 L130 218" fill="none" stroke="url(#cyberCyan)" stroke-width="5" filter="url(#neonGlow)"/>
+                
+                <!-- גלגל שיניים תעשייתי בצד ימין (אחורי) -->
+                <g transform="translate(178, 95)" filter="url(#neonGlow)">
+                    <circle cx="0" cy="0" r="34" fill="url(#armorMetal)" stroke="#00F0FF" stroke-width="2.5"/>
+                    <circle cx="0" cy="0" r="20" fill="#0B0E17" stroke="#64748B" stroke-width="2"/>
+                    <!-- שיני גלגל השיניים -->
+                    <rect x="-5" y="-42" width="10" height="10" rx="2" fill="#00F0FF"/>
+                    <rect x="-5" y="32" width="10" height="10" rx="2" fill="#00F0FF"/>
+                    <rect x="32" y="-5" width="10" height="10" rx="2" fill="#00F0FF"/>
+                    <rect x="-42" y="-5" width="10" height="10" rx="2" fill="#00F0FF"/>
+                    <rect x="21" y="-29" width="10" height="10" rx="2" transform="rotate(45 26 -24)" fill="#94A3B8"/>
+                    <rect x="21" y="21" width="10" height="10" rx="2" transform="rotate(-45 26 26)" fill="#94A3B8"/>
+                </g>
+
+                <!-- פטיש חישול כבד בצד שמאל -->
+                <g transform="translate(65, 72) rotate(-32)" filter="url(#neonGlow)">
+                    <!-- ידית הפטיש -->
+                    <rect x="-5" y="10" width="10" height="68" rx="3" fill="url(#steelHighlight)" stroke="#090B10" stroke-width="2"/>
+                    <rect x="-6" y="32" width="12" height="6" fill="#FF5500"/>
+                    <rect x="-6" y="52" width="12" height="6" fill="#FF5500"/>
+                    <!-- ראש הפטיש המסיבי -->
+                    <rect x="-26" y="-14" width="52" height="28" rx="4" fill="url(#armorMetal)" stroke="#FF5500" stroke-width="2.5"/>
+                    <rect x="-22" y="-10" width="10" height="20" rx="1" fill="url(#steelHighlight)"/>
+                    <rect x="12" y="-10" width="10" height="20" rx="1" fill="url(#steelHighlight)"/>
+                    <line x1="-8" y1="0" x2="8" y2="0" stroke="#FF5500" stroke-width="3" stroke-linecap="round"/>
+                </g>
+
+                <!-- כתפיות שריון רחבות של לוחם הסייבר -->
+                <path d="M62 152 L82 124 L178 124 L198 152 L182 174 L78 174 Z" fill="url(#armorMetal)" stroke="#475569" stroke-width="2.5"/>
+                <!-- פסי אנרגיה בכתפיים -->
+                <path d="M72 146 L94 132" stroke="#FF5500" stroke-width="3.5" stroke-linecap="round"/>
+                <path d="M188 146 L166 132" stroke="#00F0FF" stroke-width="3.5" stroke-linecap="round"/>
+                <!-- ליבת כוח בחזה -->
+                <circle cx="130" cy="148" r="11" fill="#090B10" stroke="#FF5500" stroke-width="2.5"/>
+                <circle cx="130" cy="148" r="5" fill="#FF5500" filter="url(#neonGlow)"/>
+
+                <!-- קסדת אביר הסייבר (מרכז) -->
+                <path d="M96 66 L112 42 L148 42 L164 66 L158 114 L130 132 L102 114 Z" fill="url(#armorMetal)" stroke="url(#steelHighlight)" stroke-width="2.5"/>
+                <!-- כרבולת מתכת מרכזית בקסדה -->
+                <path d="M124 36 L136 36 L134 74 L126 74 Z" fill="url(#steelHighlight)"/>
+                <circle cx="130" cy="54" r="3.5" fill="#FF5500"/>
+
+                <!-- משקף עיניים זוהר (כתום-אדום אגרסיבי) -->
+                <polygon points="103,76 127,82 125,90 105,86" fill="#FF3300" filter="url(#neonGlow)"/>
+                <polygon points="157,76 133,82 135,90 155,86" fill="#FF3300" filter="url(#neonGlow)"/>
+                <!-- פסי תאורה פנימיים בעיניים -->
+                <line x1="108" y1="80" x2="123" y2="84" stroke="#FFD700" stroke-width="1.5"/>
+                <line x1="152" y1="80" x2="137" y2="84" stroke="#FFD700" stroke-width="1.5"/>
+
+                <!-- סורגי נשימה מתכתיים במגן הפה -->
+                <path d="M110 96 L150 96 L144 120 L130 128 L116 120 Z" fill="#0D1119" stroke="#64748B" stroke-width="1.5"/>
+                <line x1="120" y1="100" x2="120" y2="118" stroke="#94A3B8" stroke-width="2"/>
+                <line x1="130" y1="100" x2="130" y2="122" stroke="#94A3B8" stroke-width="2"/>
+                <line x1="140" y1="100" x2="140" y2="118" stroke="#94A3B8" stroke-width="2"/>
+
+                <!-- לוחית שם תחתונה עם כיתוב CYBERFORGE וסייברפורג' -->
+                <polygon points="32,164 228,164 216,198 44,198" fill="#090B10" stroke="url(#forgeOrange)" stroke-width="3"/>
+                <polygon points="36,167 224,167 213,195 47,195" fill="none" stroke="#00F0FF" stroke-width="1" stroke-opacity="0.6"/>
+                
+                <text x="130" y="183" text-anchor="middle" fill="#FFFFFF" font-family="Orbitron, sans-serif" font-weight="900" font-size="18.5" letter-spacing="1.2">CYBERFORGE</text>
+                <text x="130" y="195" text-anchor="middle" fill="#FF7700" font-family="Heebo, sans-serif" font-weight="800" font-size="11" letter-spacing="0.5">סייברפורג'</text>
+            </g>
+        </defs>
+    </svg>
+
+    <!-- ==================== תפריט ניווט עליון (NAVBAR) ==================== -->
+    <header class="sticky top-0 z-50 glass-panel border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- לוגו החנות OPTION 02 -->
+                <button onclick="navigateTo('home')" class="flex items-center gap-3 group focus:outline-none text-right cursor-pointer">
+                    <div class="w-14 h-14 flex items-center justify-center group-hover:scale-105 transition-transform">
+                        <svg viewBox="15 10 230 212" class="w-full h-full drop-shadow-[0_0_10px_rgba(255,85,0,0.45)]">
+                            <use href="#cyberforge-mascot-02"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="font-cyber font-black text-xl sm:text-2xl tracking-wider text-white block leading-none">
+                            CYBER<span class="text-cyber-orange">FORGE</span>
+                        </span>
+                        <span class="text-xs text-cyber-cyan font-bold tracking-widest block mt-0.5">סייברפורג' גיימינג</span>
+                    </div>
+                </button>
+
+                <!-- קישורי ניווט למסכים רחבים -->
+                <nav class="hidden md:flex items-center gap-8">
+                    <button onclick="navigateTo('home')" data-target="home" class="nav-link active-nav text-base font-bold py-2 transition-colors hover:text-cyber-cyan cursor-pointer">
+                        דף בית
+                    </button>
+                    <button onclick="navigateTo('offerings')" data-target="offerings" class="nav-link text-base font-bold text-slate-300 py-2 transition-colors hover:text-cyber-cyan cursor-pointer">
+                        מה אנחנו מציעים
+                    </button>
+                    <button onclick="navigateTo('about')" data-target="about" class="nav-link text-base font-bold text-slate-300 py-2 transition-colors hover:text-cyber-cyan cursor-pointer">
+                        אודות
+                    </button>
+                    <button onclick="navigateTo('contact')" data-target="contact" class="nav-link text-base font-bold text-slate-300 py-2 transition-colors hover:text-cyber-cyan cursor-pointer">
+                        צור קשר
+                    </button>
+                </nav>
+
+                <!-- כפתור פעולה מהירה + כפתור תפריט מובייל -->
+                <div class="flex items-center gap-3">
+                    <button onclick="navigateTo('contact')" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyber-orange to-cyber-amber text-white font-extrabold text-sm hover:brightness-110 transition-all shadow-neon-orange cursor-pointer">
+                        <i class="fa-solid fa-hammer"></i>
+                        <span>ייעוץ לבניית מפרט</span>
+                    </button>
+
+                    <!-- כפתור המבורגר למובייל -->
+                    <button id="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="פתח תפריט" class="md:hidden p-3 rounded-xl bg-white/5 border border-white/10 text-cyber-orange hover:bg-white/10 transition">
+                        <i id="mobile-menu-icon" class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- תפריט נפתח למובייל -->
+        <div id="mobile-menu" class="hidden md:hidden bg-cyber-card/95 backdrop-blur-xl border-b border-white/10 px-4 pt-3 pb-6 space-y-2">
+            <button onclick="navigateTo('home')" data-target="home" class="mobile-nav-link w-full text-right block px-4 py-3 rounded-xl font-bold text-cyber-cyan bg-white/5">
+                <i class="fa-solid fa-house ml-2 w-5"></i> דף בית
+            </button>
+            <button onclick="navigateTo('offerings')" data-target="offerings" class="mobile-nav-link w-full text-right block px-4 py-3 rounded-xl font-bold text-slate-300 hover:bg-white/5">
+                <i class="fa-solid fa-gamepad ml-2 w-5"></i> מה אנחנו מציעים
+            </button>
+            <button onclick="navigateTo('about')" data-target="about" class="mobile-nav-link w-full text-right block px-4 py-3 rounded-xl font-bold text-slate-300 hover:bg-white/5">
+                <i class="fa-solid fa-shield-halved ml-2 w-5"></i> אודות
+            </button>
+            <button onclick="navigateTo('contact')" data-target="contact" class="mobile-nav-link w-full text-right block px-4 py-3 rounded-xl font-bold text-slate-300 hover:bg-white/5">
+                <i class="fa-solid fa-envelope ml-2 w-5"></i> צור קשר
+            </button>
+        </div>
+    </header>
+
+    <!-- ==================== תוכן ראשי דינמי (4 עמודים) ==================== -->
+    <main class="flex-grow">
+
+        <!-- ================================================================
+             עמוד 1: דף בית (HOME)
+        ================================================================ -->
+        <section id="page-home" class="page-section active">
+            <div class="relative overflow-hidden py-12 sm:py-20">
+                <!-- הילות רקע כתום וציאן -->
+                <div class="absolute -top-24 -right-24 w-96 h-96 bg-cyber-orange/15 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute top-1/2 -left-24 w-96 h-96 bg-cyber-cyan/15 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+                        
+                        <!-- טקסט ראשי וכפתורי פעולה -->
+                        <div class="lg:col-span-7 text-center lg:text-right space-y-6">
+                            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyber-orange/15 border border-cyber-orange/40 text-cyber-amber text-xs sm:text-sm font-bold">
+                                <span class="w-2 h-2 rounded-full bg-cyber-orange animate-ping"></span>
+                                <span>הכור של הגיימינג בישראל • סדרת RTX 5090 במלאי מיידי</span>
+                            </div>
+
+                            <h1 class="font-display font-black text-4xl sm:text-6xl lg:text-7xl leading-tight tracking-tight text-white">
+                                מחשלים את <br>
+                                <span class="text-gradient-forge">דור העתיד</span> <br>
+                                של הגיימינג.
+                            </h1>
+
+                            <p class="text-slate-300 text-base sm:text-xl max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                                ברוכים הבאים ל-<strong class="text-white">CYBERFORGE (סייברפורג')</strong> – הבית של הגיימרים והיוצרים. הרכבת מחשבי קצה בהתאמה אישית ברמת גימור אומנותית, ציוד היקפי תחרותי, קונסולות ומעבדת שירות אקספרס.
+                            </p>
+
+                            <!-- כפתורי הנעה לפעולה -->
+                            <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                                <button onclick="navigateTo('offerings')" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-cyber-orange to-cyber-amber text-white font-black text-base sm:text-lg hover:brightness-110 transition-all shadow-neon-orange flex items-center justify-center gap-3 cursor-pointer">
+                                    <span>לצפייה בקטלוג ובמבצעים</span>
+                                    <i class="fa-solid fa-arrow-left"></i>
+                                </button>
+                                <button onclick="navigateTo('contact')" class="w-full sm:w-auto px-8 py-4 rounded-xl glass-panel border border-cyber-cyan/50 text-cyber-cyan font-bold text-base sm:text-lg hover:bg-cyber-cyan/15 transition-all flex items-center justify-center gap-3 cursor-pointer">
+                                    <i class="fa-solid fa-wrench"></i>
+                                    <span>בנה מחשב בהתאמה אישית</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- תצוגת סמל המאסקוט OPTION 02 בגדול -->
+                        <div class="lg:col-span-5 flex justify-center">
+                            <div class="relative w-full max-w-md rounded-3xl p-6 sm:p-8 glass-panel border border-cyber-orange/30 shadow-neon-orange flex flex-col items-center text-center">
+                                <div class="w-full flex justify-between items-center mb-2">
+                                    <span class="px-3 py-1 rounded-lg bg-cyber-orange/20 text-cyber-amber text-xs font-extrabold border border-cyber-orange/30">FORGE EDITION</span>
+                                    <span class="font-cyber text-xs text-cyber-cyan">EST. 2019 // TLV</span>
+                                </div>
+
+                                <!-- סמל המאסקוט המלא -->
+                                <div class="w-64 h-64 sm:w-72 sm:h-72 my-2 mascot-float">
+                                    <svg viewBox="15 10 230 212" class="w-full h-full drop-shadow-[0_10px_25px_rgba(255,85,0,0.45)]">
+                                        <use href="#cyberforge-mascot-02"/>
+                                    </svg>
+                                </div>
+
+                                <p class="text-slate-300 text-sm mt-2">
+                                    עוצמה תעשייתית, דיוק הנדסי וביצועי קצה ללא פשרות.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- רצועת 3 יתרונות: למה לבחור בסייברפורג' -->
+                    <div class="mt-20">
+                        <div class="text-center mb-10">
+                            <span class="text-cyber-cyan font-cyber text-xs tracking-widest uppercase">THE CYBERFORGE ADVANTAGE</span>
+                            <h2 class="font-display font-black text-2xl sm:text-4xl text-white mt-1">למה לבחור בסייברפורג'?</h2>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <!-- יתרון 1 -->
+                            <div class="glass-panel rounded-2xl p-7 border-t-2 border-t-cyber-orange transition-transform hover:-translate-y-1">
+                                <div class="w-14 h-14 rounded-2xl bg-cyber-orange/15 text-cyber-orange flex items-center justify-center text-2xl mb-5 border border-cyber-orange/30">
+                                    <i class="fa-solid fa-hammer"></i>
+                                </div>
+                                <h3 class="font-display font-extrabold text-xl text-white mb-2">בנייה בהתאמה אישית</h3>
+                                <p class="text-slate-400 text-sm leading-relaxed">
+                                    כל מחשב מחושל אצלנו מאפס לפי הצרכים והתקציב שלך, כולל סידור כבלים אומנותי, אופטימיזציית BIOS ובדיקות מאמץ של 24 שעות.
+                                </p>
+                            </div>
+
+                            <!-- יתרון 2 -->
+                            <div class="glass-panel rounded-2xl p-7 border-t-2 border-t-cyber-cyan transition-transform hover:-translate-y-1">
+                                <div class="w-14 h-14 rounded-2xl bg-cyber-cyan/15 text-cyber-cyan flex items-center justify-center text-2xl mb-5 border border-cyber-cyan/30">
+                                    <i class="fa-solid fa-bolt"></i>
+                                </div>
+                                <h3 class="font-display font-extrabold text-xl text-white mb-2">מעבדת שירות אקספרס</h3>
+                                <p class="text-slate-400 text-sm leading-relaxed">
+                                    תקלה באמצע טורניר? המעבדה שלנו בתל אביב מספקת אבחון מהיר, ניקוי תרמי יסודי, שדרוג רכיבים ותיקונים במקום ללא המתנה מיותרת.
+                                </p>
+                            </div>
+
+                            <!-- יתרון 3 -->
+                            <div class="glass-panel rounded-2xl p-7 border-t-2 border-t-cyber-amber transition-transform hover:-translate-y-1">
+                                <div class="w-14 h-14 rounded-2xl bg-cyber-amber/15 text-cyber-amber flex items-center justify-center text-2xl mb-5 border border-cyber-amber/30">
+                                    <i class="fa-solid fa-shield-halved"></i>
+                                </div>
+                                <h3 class="font-display font-extrabold text-xl text-white mb-2">ציוד קצה רשמי</h3>
+                                <p class="text-slate-400 text-sm leading-relaxed">
+                                    אנחנו משווקים מורשים של מותגי הגיימינג המובילים בעולם עם אחריות יבואן רשמי מלאה ומתחם התנסות חי בחנות.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- באנר מבצע טרייד-אין -->
+                    <div class="mt-14 rounded-3xl p-6 sm:p-10 bg-gradient-to-l from-cyber-orange/25 via-cyber-card to-cyber-cyan/15 border border-cyber-orange/30 flex flex-col md:flex-row items-center justify-between gap-6">
+                        <div class="space-y-2 text-center md:text-right">
+                            <span class="inline-block px-3 py-1 rounded-full bg-cyber-orange/25 text-cyber-amber text-xs font-extrabold">מבצע טרייד-אין בלעדי</span>
+                            <h2 class="font-display font-extrabold text-2xl sm:text-3xl text-white">משדרגים כרטיס מסך או מחשב ישן?</h2>
+                            <p class="text-slate-300 text-sm sm:text-base">הביאו את החומרה הישנה שלכם לחנות בתל אביב וקבלו זיכוי מיידי של עד ₪2,500 לרכישת מערכת חדשה!</p>
+                        </div>
+                        <button onclick="navigateTo('contact')" class="shrink-0 px-7 py-3.5 rounded-xl bg-cyber-cyan text-black font-black text-sm sm:text-base hover:bg-white transition-colors shadow-neon-cyan cursor-pointer">
+                            בדיקת שווי טרייד-אין
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================================================================
+             עמוד 2: מה אנחנו מציעים (WHAT WE OFFER)
+        ================================================================ -->
+        <section id="page-offerings" class="page-section py-12 sm:py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <!-- כותרת העמוד -->
+                <div class="text-center max-w-3xl mx-auto space-y-4 mb-12">
+                    <span class="text-cyber-orange font-cyber text-sm tracking-widest uppercase">ARSENAL & SERVICES</span>
+                    <h2 class="font-display font-black text-3xl sm:text-5xl text-white">מה אנחנו מציעים</h2>
+                    <p class="text-slate-300 text-base sm:text-lg">
+                        ממחשבי קצה בהתאמה אישית ועד ציוד היקפי תחרותי ומעבדת תיקונים מתקדמת – כל מה שצריך כדי לנצח.
+                    </p>
+                </div>
+
+                <!-- כפתורי סינון קטגוריות -->
+                <div class="flex flex-wrap items-center justify-center gap-3 mb-12" id="filter-buttons">
+                    <button onclick="filterOfferings('all')" data-filter="all" class="filter-btn active-filter px-5 py-2.5 rounded-xl font-bold text-sm bg-cyber-orange text-white shadow-neon-orange transition-all cursor-pointer">
+                        הכל
+                    </button>
+                    <button onclick="filterOfferings('pc')" data-filter="pc" class="filter-btn px-5 py-2.5 rounded-xl font-bold text-sm glass-panel text-slate-300 hover:text-white transition-all cursor-pointer">
+                        <i class="fa-solid fa-desktop ml-1.5 text-cyber-cyan"></i> מחשבי גיימינג
+                    </button>
+                    <button onclick="filterOfferings('peripherals')" data-filter="peripherals" class="filter-btn px-5 py-2.5 rounded-xl font-bold text-sm glass-panel text-slate-300 hover:text-white transition-all cursor-pointer">
+                        <i class="fa-solid fa-keyboard ml-1.5 text-cyber-orange"></i> ציוד היקפי
+                    </button>
+                    <button onclick="filterOfferings('consoles')" data-filter="consoles" class="filter-btn px-5 py-2.5 rounded-xl font-bold text-sm glass-panel text-slate-300 hover:text-white transition-all cursor-pointer">
+                        <i class="fa-solid fa-vr-cardboard ml-1.5 text-cyber-cyan"></i> קונסולות ו-VR
+                    </button>
+                    <button onclick="filterOfferings('lab')" data-filter="lab" class="filter-btn px-5 py-2.5 rounded-xl font-bold text-sm glass-panel text-slate-300 hover:text-white transition-all cursor-pointer">
+                        <i class="fa-solid fa-screwdriver-wrench ml-1.5 text-cyber-amber"></i> מעבדה ושדרוגים
+                    </button>
+                </div>
+
+                <!-- גריד מוצרים ושירותים (6 כרטיסים עשירים) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7" id="offerings-grid">
+                    
+                    <!-- כרטיס 1: מחשב גיימינג -->
+                    <div class="offering-card glass-panel rounded-2xl p-6 flex flex-col justify-between transition-all hover:-translate-y-1.5" data-category="pc">
+                        <div>
+                            <div class="flex justify-between items-start mb-4">
+                                <span class="px-3 py-1 rounded-lg bg-cyber-cyan/15 text-cyber-cyan text-xs font-bold border border-cyber-cyan/30">מחשבי גיימינג</span>
+                                <i class="fa-solid fa-microchip text-2xl text-cyber-cyan"></i>
+                            </div>
+                            <h3 class="font-display font-extrabold text-xl text-white mb-2">FORGE STRIKER PRO</h3>
+                            <p class="text-slate-400 text-sm mb-4">מחשב גיימינג עוצמתי ל-1440p בקצב רענון גבוה, כולל סידור כבלים אומנותי ובדיקות מאמץ מלאות.</p>
+                            <ul class="space-y-2 text-sm text-slate-300 mb-6 border-t border-white/10 pt-4">
+                                <li><i class="fa-solid fa-check text-cyber-cyan ml-2"></i>מעבד AMD Ryzen 7 9800X3D</li>
+                                <li><i class="fa-solid fa-check text-cyber-cyan ml-2"></i>כרטיס מסך RTX 5070 Ti 16GB</li>
+                                <li><i class="fa-solid fa-check text-cyber-cyan ml-2"></i>זיכרון 32GB DDR5 + כונן 2TB NVMe</li>
+                            </ul>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/10">
+                            <span class="font-display font-black text-2xl text-white">₪7,890</span>
+                            <button onclick="orderProduct('FORGE STRIKER PRO')" class="px-4 py-2 rounded-xl bg-cyber-orange text-white hover:brightness-110 font-bold text-sm transition shadow-neon-orange cursor-pointer">
+                                הזמן עכשיו / לפרטים
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- כרטיס 2: מחשב גיימינג קצה -->
+                    <div class="offering-card glass-panel rounded-2xl p-6 flex flex-col justify-between transition-all hover:-translate-y-1.5 border-cyber-orange/30" data-category="pc">
+                        <div>
+                            <div class="flex justify-between items-start mb-4">
+                                <span class="px-3 py-1 rounded-lg bg-cyber-orange/20 text-cyber-amber text-xs font-bold border border-cyber-orange/40">סדרת האקסטרים</span>
+                                <i class="fa-solid fa-fire text-2xl text-cyber-orange"></i>
+                            </div>
+                            <h3 class="font-display font-extrabold text-xl text-white mb-2">FORGE TITAN X-PRO</h3>
+                            <p class="text-slate-400 text-sm mb-4">מפלצת ביצועים לגיימינג ב-4K Ultra, סטרימינג מקצועי ורינדור תלת-ממד ללא פשרות.</p>
+                            <ul class="space-y-2 text-sm text-slate-300 mb-6 border-t border-white/10 pt-4">
+                                <li><i class="fa-solid fa-check text-cyber-orange ml-2"></i>מעבד Intel Core Ultra 9 285K</li>
+                                <li><i class="fa-solid fa-check text-cyber-orange ml-2"></i>כרטיס מסך RTX 5090 32GB OC</li>
+                                <li><i class="fa-solid fa-check text-cyber-orange ml-2"></i>קירור נוזלי 360mm + זיכרון 64GB DDR5</li>
+                            </ul>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/10">
+                            <span class="font-display font-black text-2xl text-white">₪13,490</span>
+                            <button onclick="orderProduct('FORGE TITAN X-PRO')" class="px-4 py-2 rounded-xl bg-cyber-orange text-white hover:brightness-110 font-bold text-sm transition shadow-neon-orange cursor-pointer">
+                                הזמן עכשיו / לפרטים
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- כרטיס 3: ציוד היקפי -->
+                    <div class="offering-card glass-panel rounded-2xl p-6 flex flex-col justify-between transition-all hover:-translate-y-1.5" data-category="peripherals">
+                        <div>
+                            <div class="flex justify-between items-start mb-4">
+                                <span class="px-3 py-1 rounded-lg bg-cyber-cyan/15 text-cyber-cyan text-xs font-bold border border-cyber-cyan/30">ציוד היקפי פרו</span>
+                                <i class="fa-solid fa-keyboard text-2xl text-cyber-cyan"></i>
+                            </div>
+                            <h3 class="font-display font-extrabold text-xl text-white mb-2">באנדל E-SPORTS PRO</h3>
+                            <p class="text-slate-400 text-sm mb-4">סט ציוד היקפי אלחוטי ברמת תחרויות עולמיות עם זמן תגובה אפסי וחיי סוללה ארוכים.</p>
+                            <ul class="space-y-2 text-sm text-slate-300 mb-6 border-t border-white/10 pt-4">
+                                <li><i class="fa-solid fa-check text-cyber-cyan ml-2"></i>מקלדת מכנית מגנטית (Rapid Trigger)</li>
+                                <li><i class="fa-solid fa-check text-cyber-cyan ml-2"></i>עכבר גיימינג אולטרה-קל 49 גרם</li>
+                                <li><i class="fa-solid fa-check text-cyber-cyan ml-2"></i>אוזניות אלחוטיות 7.1 Surround</li>
+                            </ul>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/10">
+                            <span class="font-display font-black text-2xl text-white">₪1,490</span>
+                            <button onclick="orderProduct('באנדל E-SPORTS PRO')" class="px-4 py-2 rounded-xl bg-cyber-cyan text-black hover:bg-white font-bold text-sm transition shadow-neon-cyan cursor-pointer">
+                                הזמן עכשיו / לפרטים
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- כרטיס 4: קונסולות ו-VR -->
+                    <div class="offering-card glass-panel rounded-2xl p-6 flex flex-col justify-between transition-all hover:-translate-y-1.5" data-category="consoles">
+                        <div>
+                            <div class="flex justify-between items-start mb-4">
+                                <span class="px-3 py-1 rounded-lg bg-cyber-orange/20 text-cyber-amber text-xs font-bold border border-cyber-orange/40">קונסולות ומציאות מדומה</span>
+                                <i class="fa-solid fa-vr-cardboard text-2xl text-cyber-amber"></i>
+                            </div>
+                            <h3 class="font-display font-extrabold text-xl text-white mb-2">עמדות PS5 Pro & Meta Quest</h3>
+                            <p class="text-slate-400 text-sm mb-4">קונסולות הדור הבא ומשקפי מציאות מדומה מתקדמים באחריות יבואן רשמי, כולל עמדות התנסות בחנות.</p>
+                            <ul class="space-y-2 text-sm text-slate-300 mb-6 border-t border-white/10 pt-4">
+                                <li><i class="fa-solid fa-check text-cyber-amber ml-2"></i>PlayStation 5 Pro 2TB + שלט DualSense</li>
+                                <li><i class="fa-solid fa-check text-cyber-amber ml-2"></i>משקפי VR אלחוטיים ברזולוציית 4K+</li>
+                                <li><i class="fa-solid fa-check text-cyber-amber ml-2"></i>מבחר ענק של הגאים, אביזרים וכיסאות</li>
+                            </ul>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/10">
+                            <span class="font-display font-black text-2xl text-white">החל מ-₪2,190</span>
+                            <button onclick="orderProduct('עמדות PS5 Pro & Meta Quest')" class="px-4 py-2 rounded-xl bg-cyber-orange text-white hover:brightness-110 font-bold text-sm transition shadow-neon-orange cursor-pointer">
+                                הזמן עכשיו / לפרטים
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- כרטיס 5: מעבדה ושדרוגים -->
+                    <div class="offering-card glass-panel rounded-2xl p-6 flex flex-col justify-between transition-all hover:-translate-y-1.5" data-category="lab">
+                        <div>
+                            <div class="flex justify-between items-start mb-4">
+                                <span class="px-3 py-1 rounded-lg bg-cyber-cyan/15 text-cyber-cyan text-xs font-bold border border-cyber-cyan/30">מעבדה ושדרוגים</span>
+                                <i class="fa-solid fa-screwdriver-wrench text-2xl text-cyber-cyan"></i>
+                            </div>
+                            <h3 class="font-display font-extrabold text-xl text-white mb-2">טיפול 10,000 ואופטימיזציה</h3>
+                            <p class="text-slate-400 text-sm mb-4">המחשב מתחמם או רועש? המעבדה שלנו מחזירה למחשב שלך את הביצועים והשקט של היום הראשון.</p>
+                            <ul class="space-y-2 text-sm text-slate-300 mb-6 border-t border-white/10 pt-4">
+                                <li><i class="fa-solid fa-check text-cyber-cyan ml-2"></i>ניקוי אבק יסודי בלחץ אוויר מבוקר</li>
+                                <li><i class="fa-solid fa-check text-cyber-cyan ml-2"></i>החלפת משחה תרמית פרימיום למעבד ולכרטיס</li>
+                                <li><i class="fa-solid fa-check text-cyber-cyan ml-2"></i>אופטימיזציית BIOS ודרייברים למקסימום FPS</li>
+                            </ul>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/10">
+                            <span class="font-display font-black text-2xl text-white">₪290</span>
+                            <button onclick="orderProduct('טיפול מעבדה 10,000 ואופטימיזציה')" class="px-4 py-2 rounded-xl bg-cyber-cyan text-black hover:bg-white font-bold text-sm transition shadow-neon-cyan cursor-pointer">
+                                הזמן עכשיו / לפרטים
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- כרטיס 6: הרכבה בהתאמה אישית -->
+                    <div class="offering-card glass-panel rounded-2xl p-6 flex flex-col justify-between transition-all hover:-translate-y-1.5" data-category="lab">
+                        <div>
+                            <div class="flex justify-between items-start mb-4">
+                                <span class="px-3 py-1 rounded-lg bg-cyber-orange/20 text-cyber-amber text-xs font-bold border border-cyber-orange/40">התאמה אישית</span>
+                                <i class="fa-solid fa-hammer text-2xl text-cyber-orange"></i>
+                            </div>
+                            <h3 class="font-display font-extrabold text-xl text-white mb-2">הרכבת מפרט מחלקים שלך</h3>
+                            <p class="text-slate-400 text-sm mb-4">קנית רכיבים או רוצה לשדרג רק חלק מהמערכת? נרכיב ונבדוק עבורך הכל ברמת גימור מושלמת.</p>
+                            <ul class="space-y-2 text-sm text-slate-300 mb-6 border-t border-white/10 pt-4">
+                                <li><i class="fa-solid fa-check text-cyber-orange ml-2"></i>בדיקת תאימות מלאה בין כל הרכיבים</li>
+                                <li><i class="fa-solid fa-check text-cyber-orange ml-2"></i>התקנת קירור מים פתוח או סגור (AIO)</li>
+                                <li><i class="fa-solid fa-check text-cyber-orange ml-2"></i>סידור כבלים וסנכרון תאורת ARGB</li>
+                            </ul>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/10">
+                            <span class="font-display font-black text-2xl text-white">₪350</span>
+                            <button onclick="orderProduct('שירות הרכבה ושדרוג מפרט')" class="px-4 py-2 rounded-xl bg-cyber-orange text-white hover:brightness-110 font-bold text-sm transition shadow-neon-orange cursor-pointer">
+                                הזמן עכשיו / לפרטים
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ================================================================
+             עמוד 3: אודות (ABOUT)
+        ================================================================ -->
+        <section id="page-about" class="page-section py-12 sm:py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+                
+                <!-- סיפור החנות והחזון -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-6">
+                        <span class="text-cyber-orange font-cyber text-sm tracking-widest uppercase">OUR STORY & MISSION</span>
+                        <h2 class="font-display font-black text-3xl sm:text-5xl text-white leading-tight">
+                            הסיפור של <br>
+                            <span class="text-gradient-forge">CYBERFORGE</span>
+                        </h2>
+                        <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+                            חנות <strong class="text-white">CYBERFORGE (סייברפורג')</strong> הוקמה בשנת 2019 בלב תל אביב מתוך חזון ברור: להקים "נפחייה דיגיטלית" אמיתית לגיימרים, שבה כל מחשב נבנה בדיוק של שען ובעוצמה של לוחם.
+                        </p>
+                        <p class="text-slate-400 text-base leading-relaxed">
+                            הצוות שלנו מורכב משחקני E-Sports, מודינג-ארטיסטים וטכנאי חומרה ותיקים. אצלנו לא תמצאו "דחיפת" רכיבים מיותרים – אנחנו מתאימים לכל לקוח מפרט מאוזן ומדויק, מוסרים את כל האריזות המקוריות, ומזמינים אתכם להתנסות בעמדות המשחק החיות שלנו בחנות לפני הרכישה.
+                        </p>
+                    </div>
+
+                    <!-- כרטיס ערכי הליבה -->
+                    <div class="glass-panel rounded-3xl p-8 border border-cyber-orange/30 relative overflow-hidden">
+                        <div class="absolute -bottom-10 -left-10 w-48 h-48 bg-cyber-orange/15 rounded-full blur-2xl"></div>
+                        <h3 class="font-display font-extrabold text-2xl text-white mb-6 flex items-center gap-3">
+                            <i class="fa-solid fa-shield-halved text-cyber-orange"></i>
+                            <span>ערכי הליבה שלנו</span>
+                        </h3>
+                        <div class="space-y-5">
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-cyber-orange/15 text-cyber-orange flex items-center justify-center shrink-0 text-xl border border-cyber-orange/30">
+                                    <i class="fa-solid fa-user-gear"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg text-white">אומנות ההרכבה (Craftsmanship)</h4>
+                                    <p class="text-slate-400 text-sm">סידור כבלים מוקפד, זרימת אוויר אופטימלית ובקרת איכות קפדנית על כל מערכת שיוצאת מהכור.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-cyber-cyan/15 text-cyber-cyan flex items-center justify-center shrink-0 text-xl border border-cyber-cyan/30">
+                                    <i class="fa-solid fa-certificate"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg text-white">שקיפות מלאה ואחריות רשמית</h4>
+                                    <p class="text-slate-400 text-sm">100% רכיבים חדשים מיבואן רשמי בלבד, כולל אחריות מלאה לשקט הנפשי שלך לאורך שנים.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-cyber-amber/15 text-cyber-amber flex items-center justify-center shrink-0 text-xl border border-cyber-amber/30">
+                                    <i class="fa-solid fa-headset"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg text-white">קהילה וגיימינג בגובה העיניים</h4>
+                                    <p class="text-slate-400 text-sm">מארחים טורנירים, ערבי קהילה ועמדות "נסה לפני שתקנה" בסניף הדגל בתל אביב.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- רצועת נתונים וסטטיסטיקות (Stats Strip) -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                    <div class="glass-panel rounded-2xl p-8 text-center border-b-2 border-b-cyber-orange">
+                        <div class="font-cyber font-black text-4xl sm:text-5xl text-cyber-orange">+2,500</div>
+                        <div class="text-white font-bold text-lg mt-2">מערכות שחושלו</div>
+                        <p class="text-slate-400 text-sm mt-1">מחשבי גיימינג ותחנות עבודה בהתאמה אישית</p>
+                    </div>
+                    <div class="glass-panel rounded-2xl p-8 text-center border-b-2 border-b-cyber-cyan">
+                        <div class="font-cyber font-black text-4xl sm:text-5xl text-cyber-cyan">99.8%</div>
+                        <div class="text-white font-bold text-lg mt-2">שביעות רצון</div>
+                        <p class="text-slate-400 text-sm mt-1">דירוג ממוצע של 4.9 כוכבים מלקוחות מאומתים</p>
+                    </div>
+                    <div class="glass-panel rounded-2xl p-8 text-center border-b-2 border-b-cyber-amber">
+                        <div class="font-cyber font-black text-4xl sm:text-5xl text-cyber-amber">24/7</div>
+                        <div class="text-white font-bold text-lg mt-2">תמיכת גיימרים</div>
+                        <p class="text-slate-400 text-sm mt-1">קהילת דיסקורד פעילה ומענה טכני מהיר</p>
+                    </div>
+                </div>
+
+                <!-- מיקום אולם התצוגה בתל אביב -->
+                <div class="glass-panel rounded-3xl p-8 border border-white/10 flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div class="flex items-center gap-5">
+                        <div class="w-16 h-16 rounded-2xl bg-cyber-cyan/15 text-cyber-cyan flex items-center justify-center text-3xl shrink-0 border border-cyber-cyan/30">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-display font-extrabold text-2xl text-white">אולם התצוגה והמעבדה בתל אביב</h3>
+                            <p class="text-slate-300 text-base mt-1">רחוב יגאל אלון 94, מתחם אלון, תל אביב-יפו • פתוח בימים א'–ו'</p>
+                        </div>
+                    </div>
+                    <button onclick="navigateTo('contact')" class="px-6 py-3 rounded-xl bg-cyber-orange text-white font-bold hover:brightness-110 transition shadow-neon-orange cursor-pointer shrink-0">
+                        לפרטי הגעה ויצירת קשר
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================================================================
+             עמוד 4: צור קשר (CONTACT)
+        ================================================================ -->
+        <section id="page-contact" class="page-section py-12 sm:py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-3xl mx-auto space-y-4 mb-12">
+                    <span class="text-cyber-cyan font-cyber text-sm tracking-widest uppercase">CONNECT WITH THE FORGE</span>
+                    <h2 class="font-display font-black text-3xl sm:text-5xl text-white">צור קשר והזמנות</h2>
+                    <p class="text-slate-300 text-base sm:text-lg">
+                        רוצים להתייעץ לגבי מפרט חדש, להזמין מוצר מהקטלוג או לתאם תור למעבדה? השאירו פרטים ונחזור אליכם במהירות.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    
+                    <!-- טופס יצירת קשר / הזמנה (7 עמודות) -->
+                    <div class="lg:col-span-7 glass-panel rounded-3xl p-6 sm:p-10 border border-white/10">
+                        <h3 class="font-display font-extrabold text-2xl text-white mb-6">טופס פנייה והזמנה מהירה</h3>
+                        
+                        <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-5">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div>
+                                    <label for="fullName" class="block text-sm font-bold text-slate-300 mb-2">שם מלא *</label>
+                                    <input type="text" id="fullName" required placeholder="ישראל ישראלי"
+                                        class="w-full px-4 py-3 rounded-xl bg-cyber-bg/90 border border-white/15 text-white placeholder-slate-500 focus:outline-none focus:border-cyber-orange transition">
+                                </div>
+                                <div>
+                                    <label for="phone" class="block text-sm font-bold text-slate-300 mb-2">טלפון נייד *</label>
+                                    <input type="tel" id="phone" required placeholder="050-0000000"
+                                        class="w-full px-4 py-3 rounded-xl bg-cyber-bg/90 border border-white/15 text-white placeholder-slate-500 focus:outline-none focus:border-cyber-orange transition">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div>
+                                    <label for="email" class="block text-sm font-bold text-slate-300 mb-2">אימייל</label>
+                                    <input type="email" id="email" placeholder="gamer@example.com"
+                                        class="w-full px-4 py-3 rounded-xl bg-cyber-bg/90 border border-white/15 text-white placeholder-slate-500 focus:outline-none focus:border-cyber-cyan transition">
+                                </div>
+                                <div>
+                                    <label for="subject" class="block text-sm font-bold text-slate-300 mb-2">נושא הפנייה / מוצר מבוקש *</label>
+                                    <input type="text" id="subject" required value="ייעוץ לבניית מפרט גיימינג"
+                                        class="w-full px-4 py-3 rounded-xl bg-cyber-bg/90 border border-cyber-cyan/40 text-cyber-cyan font-bold placeholder-slate-500 focus:outline-none focus:border-cyber-orange transition">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="message" class="block text-sm font-bold text-slate-300 mb-2">הודעה / פרטים נוספים *</label>
+                                <textarea id="message" rows="4" required placeholder="ספרו לנו אילו משחקים אתם משחקים, מה התקציב או במה נוכל לעזור..."
+                                    class="w-full px-4 py-3 rounded-xl bg-cyber-bg/90 border border-white/15 text-white placeholder-slate-500 focus:outline-none focus:border-cyber-orange transition"></textarea>
+                            </div>
+
+                            <button type="submit"
+                                class="w-full py-4 rounded-xl bg-gradient-to-r from-cyber-orange to-cyber-amber text-white font-black text-base sm:text-lg hover:brightness-110 transition shadow-neon-orange cursor-pointer flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-paper-plane"></i>
+                                <span>שליחת פנייה לצוות CYBERFORGE</span>
+                            </button>
+                        </form>
+
+                        <!-- הודעת אישור שליחה (מוסתרת כברירת מחדל) -->
+                        <div id="form-success-msg" class="hidden mt-6 p-5 rounded-2xl bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 flex items-center gap-4">
+                            <i class="fa-solid fa-circle-check text-3xl text-emerald-400"></i>
+                            <div>
+                                <h4 class="font-bold text-lg text-white">הפנייה התקבלה בהצלחה!</h4>
+                                <p class="text-sm">תודה שפנית ל-CYBERFORGE. נציג מומחה שלנו יחזור אליך בהקדם.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- פרטי הגעה, שעות פעילות ו-WhatsApp (5 עמודות) -->
+                    <div class="lg:col-span-5 space-y-6">
+                        <div class="glass-panel rounded-3xl p-6 sm:p-8 space-y-6">
+                            <h3 class="font-display font-extrabold text-2xl text-white">פרטי החנות והמעבדה</h3>
+                            
+                            <div class="space-y-4 text-sm sm:text-base">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded-xl bg-cyber-orange/15 text-cyber-orange flex items-center justify-center shrink-0">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                    </div>
+                                    <div>
+                                        <span class="font-bold text-white block">כתובת אולם התצוגה:</span>
+                                        <span class="text-slate-300">רחוב יגאל אלון 94, תל אביב-יפו (חניה צמודה ללקוחות)</span>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded-xl bg-cyber-cyan/15 text-cyber-cyan flex items-center justify-center shrink-0">
+                                        <i class="fa-solid fa-clock"></i>
+                                    </div>
+                                    <div>
+                                        <span class="font-bold text-white block">שעות פעילות:</span>
+                                        <span class="text-slate-300 block">ימים א'–ה': 10:00 – 20:00</span>
+                                        <span class="text-slate-300 block">יום ו' וערבי חג: 09:30 – 14:30</span>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded-xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center shrink-0">
+                                        <i class="fa-solid fa-phone"></i>
+                                    </div>
+                                    <div>
+                                        <span class="font-bold text-white block">טלפון ישיר:</span>
+                                        <span class="text-slate-300 font-cyber" dir="ltr">03-555-8900</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- כפתור WhatsApp מהיר -->
+                            <a href="https://wa.me/972549998877" target="_blank" rel="noopener noreferrer"
+                                class="w-full py-3.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-sm sm:text-base transition flex items-center justify-center gap-2.5 shadow-lg">
+                                <i class="fa-brands fa-whatsapp text-xl"></i>
+                                <span>שלחו לנו הודעה מהירה ב-WhatsApp</span>
+                            </a>
+                        </div>
+
+                        <!-- כרטיס מפה טכנולוגית מעוצבת -->
+                        <div class="glass-panel rounded-3xl p-6 border border-cyber-cyan/30 relative overflow-hidden h-52 flex flex-col justify-between">
+                            <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(#00F0FF 1px, transparent 1px); background-size: 16px 16px;"></div>
+                            
+                            <div class="relative z-10 flex justify-between items-center">
+                                <span class="px-3 py-1 rounded-lg bg-black/75 text-cyber-cyan font-cyber text-xs border border-cyber-cyan/40">
+                                    TLV // 32.0684° N, 34.7932° E
+                                </span>
+                                <span class="w-3 h-3 rounded-full bg-cyber-orange animate-ping"></span>
+                            </div>
+
+                            <div class="relative z-10 my-auto text-center">
+                                <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-cyber-orange text-white shadow-neon-orange mb-2">
+                                    <i class="fa-solid fa-store text-lg"></i>
+                                </div>
+                                <div class="font-bold text-white text-base">סניף דגל תל אביב - מתחם אלון</div>
+                                <div class="text-xs text-slate-300">5 דקות הליכה מתחנת רכבת השלום</div>
+                            </div>
+
+                            <div class="relative z-10 text-center">
+                                <span class="text-xs text-cyber-cyan font-bold">פתוח עכשיו • עמדות התנסות חיות במקום</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ==================== כותרת תחתונה (FOOTER) ==================== -->
+    <footer class="glass-panel border-t border-white/10 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <svg viewBox="15 10 230 212" class="w-9 h-9">
+                    <use href="#cyberforge-mascot-02"/>
+                </svg>
+                <div>
+                    <span class="font-cyber font-bold text-white block leading-none">CYBER<span class="text-cyber-orange">FORGE</span></span>
+                    <span class="text-slate-400 text-xs">© 2026 סייברפורג' גיימינג • כל הזכויות שמורות</span>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-6 text-sm text-slate-400">
+                <button onclick="navigateTo('home')" class="hover:text-cyber-orange transition cursor-pointer">דף בית</button>
+                <button onclick="navigateTo('offerings')" class="hover:text-cyber-orange transition cursor-pointer">מה אנחנו מציעים</button>
+                <button onclick="navigateTo('about')" class="hover:text-cyber-orange transition cursor-pointer">אודות</button>
+                <button onclick="navigateTo('contact')" class="hover:text-cyber-orange transition cursor-pointer">צור קשר</button>
+            </div>
+
+            <div class="flex items-center gap-4 text-slate-400">
+                <a href="#discord" onclick="event.preventDefault(); navigateTo('contact')" aria-label="Discord" class="hover:text-cyber-cyan transition text-lg"><i class="fa-brands fa-discord"></i></a>
+                <a href="#instagram" onclick="event.preventDefault(); navigateTo('contact')" aria-label="Instagram" class="hover:text-cyber-orange transition text-lg"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#youtube" onclick="event.preventDefault(); navigateTo('contact')" aria-label="YouTube" class="hover:text-red-500 transition text-lg"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== לוגיקת JavaScript לניווט SPA ואינטראקטיביות ==================== -->
+    <script>
+        /**
+         * מעבר חלק בין 4 עמודי האתר ללא רענון הדף
+         * @param {string} pageId - מזהה העמוד ('home', 'offerings', 'about', 'contact')
+         */
+        function navigateTo(pageId) {
+            // הסתרת כל העמודים
+            const sections = document.querySelectorAll('.page-section');
+            sections.forEach(sec => {
+                sec.classList.remove('active');
+            });
+
+            // הצגת העמוד הנבחר
+            const targetSection = document.getElementById(`page-${pageId}`);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+
+            // עדכון מצב פעיל בתפריט הניווט (דסקטופ)
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                if (link.getAttribute('data-target') === pageId) {
+                    link.classList.add('active-nav');
+                    link.classList.remove('text-slate-300');
+                } else {
+                    link.classList.remove('active-nav');
+                    link.classList.add('text-slate-300');
+                }
+            });
+
+            // עדכון מצב פעיל בתפריט הניווט (מובייל)
+            const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+            mobileLinks.forEach(link => {
+                if (link.getAttribute('data-target') === pageId) {
+                    link.classList.add('text-cyber-cyan', 'bg-white/5');
+                    link.classList.remove('text-slate-300');
+                } else {
+                    link.classList.remove('text-cyber-cyan', 'bg-white/5');
+                    link.classList.add('text-slate-300');
+                }
+            });
+
+            // סגירת תפריט המובייל אם הוא פתוח
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileIcon = document.getElementById('mobile-menu-icon');
+            if (!mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+                mobileIcon.classList.remove('fa-xmark');
+                mobileIcon.classList.add('fa-bars');
+            }
+
+            // גלילה חלקה לראש העמוד
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /**
+         * פתיחה וסגירה של תפריט ההמבורגר במובייל
+         */
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileIcon = document.getElementById('mobile-menu-icon');
+            const isHidden = mobileMenu.classList.contains('hidden');
+
+            if (isHidden) {
+                mobileMenu.classList.remove('hidden');
+                mobileIcon.classList.remove('fa-bars');
+                mobileIcon.classList.add('fa-xmark');
+            } else {
+                mobileMenu.classList.add('hidden');
+                mobileIcon.classList.remove('fa-xmark');
+                mobileIcon.classList.add('fa-bars');
+            }
+        }
+
+        /**
+         * סינון כרטיסי המוצרים והשירותים בעמוד "מה אנחנו מציעים"
+         * @param {string} category - קטגוריה לסינון ('all', 'pc', 'peripherals', 'consoles', 'lab')
+         */
+        function filterOfferings(category) {
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                if (btn.getAttribute('data-filter') === category) {
+                    btn.className = 'filter-btn active-filter px-5 py-2.5 rounded-xl font-bold text-sm bg-cyber-orange text-white shadow-neon-orange transition-all cursor-pointer';
+                } else {
+                    btn.className = 'filter-btn px-5 py-2.5 rounded-xl font-bold text-sm glass-panel text-slate-300 hover:text-white transition-all cursor-pointer';
+                }
+            });
+
+            const cards = document.querySelectorAll('.offering-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        /**
+         * מעבר מהיר לעמוד צור קשר עם מילוי אוטומטי של המוצר המבוקש בשדה הנושא וההודעה
+         * @param {string} productName - שם המוצר או השירות שנבחר
+         */
+        function orderProduct(productName) {
+            navigateTo('contact');
+            const subjectField = document.getElementById('subject');
+            const messageField = document.getElementById('message');
+            
+            if (subjectField) {
+                subjectField.value = `הזמנה / פרטים: ${productName}`;
+            }
+            if (messageField) {
+                messageField.value = `היי צוות CYBERFORGE, אשמח לקבל פרטים נוספים והצעת מחיר עבור: ${productName}.`;
+                messageField.focus();
+            }
+        }
+
+        /**
+         * טיפול בשליחת טופס יצירת קשר והצגת חיווי מיידי למשתמש
+         * @param {Event} event - אירוע שליחת הטופס
+         */
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            const form = document.getElementById('contact-form');
+            const successMsg = document.getElementById('form-success-msg');
+
+            successMsg.classList.remove('hidden');
+            form.reset();
+            document.getElementById('subject').value = 'ייעוץ לבניית מפרט גיימינג';
+
+            setTimeout(() => {
+                successMsg.classList.add('hidden');
+            }, 6000);
+        }
+    </script>
+</body>
+</html>
